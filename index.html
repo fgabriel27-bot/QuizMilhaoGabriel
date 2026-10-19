@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz do Milhão</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<main class="jogo">
+
+    <h1>QUIZ DO MILHÃO</h1>
+    <p class="subtitulo">Teste seus conhecimentos e tente chegar a R$ 1.000.000!</p>
+
+    
+<!-- CAPA / CADASTRO DO JOGADOR -->
+<div id="tela-cadastro" class="jogo">
+
+   
+
+    <p class="subtitulo">
+        Seu conhecimento vale até R$ 1.000.000!
+    </p>
+
+    <div class="cadastro-card">
+        <div class="cadastro-icone">🏆</div>
+
+        <h2>Vamos começar?</h2>
+
+        <p>Identifique-se para entrar no jogo.</p>
+
+        <label for="nome-jogador">Seu nome</label>
+        <input
+            type="text"
+            id="nome-jogador"
+            placeholder="Digite seu nome completo"
+            maxlength="50"
+            autocomplete="name"
+            required
+        >
+
+        <label for="turma-jogador">Sua turma</label>
+        <input
+            type="text"
+            id="turma-jogador"
+            placeholder="Ex.: 2º DS"
+            maxlength="30"
+            required
+        >
+
+        <button id="comecar-jogo" type="button">
+            🎮 COMEÇAR A JOGAR
+        </button>
+
+        <p id="erro-cadastro" role="alert"></p>
+    </div>
+
+    <p class="rodape-capa">
+        Prepare-se para o desafio!
+    </p>
+
+</div>
+
+    <!-- ESCOLHA DE MATÉRIA -->
+    <section id="tela-materias">
+
+        <h2>Escolha a matéria para começar:</h2>
+
+        <div class="materias">
+            <button class="materia" data-materia="Português">📚 Português</button>
+            <button class="materia" data-materia="Matemática">🔢 Matemática</button>
+            <button class="materia" data-materia="História">🏛️ História</button>
+            <button class="materia" data-materia="Inglês">🇺🇸 Inglês</button>
+            <button class="materia" data-materia="Programação">💻 Programação (DS)</button>
+            <button class="materia" data-materia="Filosofia">🤔 Filosofia</button>
+            <button class="materia" data-materia="Sociologia">👥 Sociologia</button>
+            <button class="materia" data-materia="Educação Física">⚽ Educação Física</button>
+            <button class="materia" data-materia="Educação Financeira">💰 Educação Financeira</button>
+            <button class="materia" data-materia="Misturado">🎲 Todas as matérias — Misturado</button>
+        </div>
+
+    </section>
+
+    <!-- TELA DO QUIZ -->
+    <section id="tela-quiz" style="display: none;">
+
+        <div class="topo-quiz">
+            <span id="categoria">Categoria:</span>
+            <span id="numero-pergunta">Pergunta 1 de 16</span>
+            <span id="premio">Prêmio Acumulado: R$ 0</span>
+        </div>
+
+        <button id="trocar-materia" type="button">← Trocar matéria</button>
+
+        <div class="ajudas">
+            <button id="btn-universitarios" type="button">🎓 Universitários</button>
+            <button id="btn-dado" type="button">🎲 Dado</button>
+            <button id="btn-desistir" type="button">🏳️ Desistir</button>
+        </div>
+
+        <div id="pergunta">Pergunta</div>
+
+        <div id="alternativas"></div>
+
+        <div id="mensagem"></div>
+
+        <button id="proxima" type="button" disabled>
+            Próxima Pergunta
+        </button>
+
+        <!-- OPÇÕES APÓS FIM DO JOGO -->
+        <div id="botoes-final" style="display: none; gap: 12px; margin-top: 15px;">
+            <button id="repetir-jogo" type="button">
+                🔄 Repetir jogo
+            </button>
+
+            <button id="outra-materia" type="button">
+                📚 Escolher outra matéria
+            </button>
+        </div>
+
+        <!-- CONFIRMAÇÃO -->
+        <div id="confirmacao" style="display: none; text-align: center; margin-top: 20px;">
+            <p id="texto-confirmacao" style="margin-bottom: 12px; font-weight: bold;"></p>
+
+            <button id="confirmar-sim" type="button">
+                ✅ Sim
+            </button>
+
+            <button id="confirmar-nao" type="button">
+                ❌ Não
+            </button>
+        </div>
+
+    </section>
+
+</main>
+
+<!-- BOTÃO DE MÚSICA -->
+<button id="btn-musica" type="button">
+    🔊 Ativar música
+</button>
+
+<!-- PLAYER INVISÍVEL: SOMENTE ÁUDIO -->
+<audio id="musica" loop preload="auto">
+    <source src="./trilha.mp3.mp3" type="audio/mpeg">
+    Seu navegador não conseguiu carregar o áudio.
+</audio>
+
+<script>
+(() => {
+    const botao = document.getElementById("btn-musica");
+    const musica = document.getElementById("musica");
+
+    botao.addEventListener("click", async () => {
+        if (musica.paused) {
+            try {
+                await musica.play();
+                botao.textContent = "🔇 Desativar música";
+            } catch (erro) {
+                console.error("Erro ao reproduzir música:", erro);
+                botao.textContent = "⚠️ Erro ao tocar";
+                alert(
+                    "Não foi possível tocar a música. Confira se o arquivo musica.mp3 está na mesma pasta do index.html."
+                );
+            }
+        } else {
+            musica.pause();
+            botao.textContent = "🔊 Ativar música";
+        }
+    });
+
+    musica.addEventListener("ended", () => {
+        botao.textContent = "🔊 Ativar música";
+    });
+})();
+</script>
+<audio id="som-erro" src="./errou.mp3.mp3" preload="auto"></audio>
+
+
+<!-- CÓDIGO ORIGINAL DO QUIZ -->
+<script src="script.js"></script>
+
+</body>
+</html>

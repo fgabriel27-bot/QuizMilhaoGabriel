@@ -1,0 +1,947 @@
+/* ==========================================
+   RESET
+========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at top, #172d66 0%, #071126 45%, #030711 100%);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+/* ==========================================
+   FUNDO ANIMADO
+========================================== */
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.18;
+    z-index: -1;
+    animation: flutuar 8s infinite alternate ease-in-out;
+}
+
+body::before {
+    background: #ffd700;
+    top: -120px;
+    left: -100px;
+}
+
+body::after {
+    background: #006eff;
+    bottom: -120px;
+    right: -100px;
+    animation-delay: 2s;
+}
+
+@keyframes flutuar {
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(40px, 30px);
+    }
+}
+
+/* ==========================================
+   CONTAINER PRINCIPAL
+========================================== */
+
+.jogo {
+    width: 100%;
+    max-width: 900px;
+    background: rgba(7, 18, 43, 0.88);
+    border: 2px solid rgba(255, 215, 0, 0.35);
+    border-radius: 28px;
+    padding: 30px;
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.6),
+        0 0 40px rgba(255, 215, 0, 0.08);
+    backdrop-filter: blur(15px);
+    animation: aparecer 0.6s ease;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ==========================================
+   TÍTULO
+========================================== */
+
+h1 {
+    text-align: center;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 900;
+    color: #ffd700;
+    text-shadow:
+        0 0 10px rgba(255, 215, 0, 0.5),
+        0 0 30px rgba(255, 215, 0, 0.2);
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.subtitulo {
+    text-align: center;
+    color: #b9c7e6;
+    margin-bottom: 25px;
+}
+
+/* ==========================================
+   TELA DE MATÉRIAS
+========================================== */
+
+#tela-materias {
+    animation: aparecer 0.5s ease;
+}
+
+#tela-materias h2 {
+    text-align: center;
+    color: white;
+    margin: 25px 0;
+    font-size: 1.4rem;
+}
+
+.materias {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.materia {
+    min-height: 95px;
+    border: 2px solid rgba(255, 215, 0, 0.25);
+    border-radius: 18px;
+    background: linear-gradient(145deg, #12285a, #091633);
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.25s ease;
+    padding: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.materia:hover {
+    transform: translateY(-6px) scale(1.02);
+    border-color: #ffd700;
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(255, 215, 0, 0.15);
+    background: linear-gradient(145deg, #1c3b7d, #0b1b3d);
+}
+
+.materia:active {
+    transform: scale(0.97);
+}
+
+/* ==========================================
+   MISTURADO
+========================================== */
+
+.materia[data-materia="Misturado"] {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, #6c3cff, #d000ff);
+    border-color: #d8a7ff;
+    font-size: 1.1rem;
+}
+
+.materia[data-materia="Misturado"]:hover {
+    box-shadow:
+        0 0 25px rgba(174, 0, 255, 0.45),
+        0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* ==========================================
+   TOPO DO QUIZ
+========================================== */
+
+.topo-quiz {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+/* Categoria */
+
+#categoria {
+    color: #ffd700;
+    font-weight: bold;
+    text-align: left;
+}
+#numero-pergunta {
+    color: #c5d0e8;
+    font-weight: bold;
+}
+
+#premio {
+    background: linear-gradient(135deg, #ffd700, #ffae00);
+    color: #171000;
+    padding: 10px 18px;
+    border-radius: 30px;
+    font-weight: 900;
+    box-shadow: 0 5px 20px rgba(255, 193, 7, 0.25);
+}
+
+/* ==========================================
+   BOTÃO TROCAR MATÉRIA
+========================================== */
+
+#trocar-materia {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.07);
+    color: white;
+    border-radius: 12px;
+    padding: 9px 14px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#trocar-materia:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+/* ==========================================
+   AJUDAS
+========================================== */
+
+.ajudas {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.ajudas button,
+#btn-universitarios,
+#btn-dado,
+#btn-desistir {
+    border: none;
+    border-radius: 14px;
+    padding: 12px 17px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+#btn-universitarios {
+    background: linear-gradient(135deg, #1769ff, #003db8);
+}
+
+#btn-dado {
+    background: linear-gradient(135deg, #8e44ad, #5e1d7d);
+}
+
+#btn-desistir {
+    background: linear-gradient(135deg, #e74c3c, #a7190d);
+}
+
+.ajudas button:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.15);
+}
+
+.ajudas button:active {
+    transform: scale(0.96);
+}
+
+.ajudas button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+    filter: grayscale(0.5);
+}
+
+/* ==========================================
+   PERGUNTA
+========================================== */
+
+#pergunta {
+    background: linear-gradient(145deg, #132c62, #091936);
+    border: 2px solid rgba(255, 215, 0, 0.25);
+    border-radius: 22px;
+    padding: 28px 25px;
+    text-align: center;
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    line-height: 1.5;
+    font-weight: bold;
+    margin: 20px 0;
+    box-shadow:
+        inset 0 0 25px rgba(255, 255, 255, 0.02),
+        0 10px 30px rgba(0, 0, 0, 0.25);
+    animation: perguntaEntrando 0.45s ease;
+}
+
+@keyframes perguntaEntrando {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ==========================================
+   ALTERNATIVAS
+========================================== */
+
+#alternativas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.alternativa {
+    position: relative;
+    min-height: 65px;
+    padding: 15px 18px;
+    border-radius: 16px;
+    border: 2px solid #243b6d;
+    background: linear-gradient(145deg, #102550, #091631);
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.25s ease;
+    overflow: hidden;
+}
+
+.alternativa::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.08),
+        transparent
+    );
+    transform: translateX(-100%);
+    transition: 0.5s;
+}
+
+.alternativa:hover::before {
+    transform: translateX(100%);
+}
+
+.alternativa:hover {
+    border-color: #ffd700;
+    transform: translateY(-3px);
+    background: linear-gradient(145deg, #17366f, #0c1e43);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+}
+
+.alternativa:active {
+    transform: scale(0.98);
+}
+
+.alternativa:disabled {
+    cursor: default;
+}
+
+/* ==========================================
+   RESPOSTA CORRETA
+========================================== */
+
+.alternativa.correta {
+    background: linear-gradient(135deg, #0d9f58, #08723f);
+    border-color: #43ff9b;
+    animation: correta 0.55s ease;
+}
+
+@keyframes correta {
+    0% {
+        transform: scale(1);
+    }
+
+    40% {
+        transform: scale(1.04);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* ==========================================
+   RESPOSTA ERRADA
+========================================== */
+
+.alternativa.errada {
+    background: linear-gradient(135deg, #d52d3b, #8e101b);
+    border-color: #ff6b75;
+    animation: errada 0.5s ease;
+}
+
+@keyframes errada {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-8px);
+    }
+
+    40% {
+        transform: translateX(8px);
+    }
+
+    60% {
+        transform: translateX(-6px);
+    }
+
+    80% {
+        transform: translateX(6px);
+    }
+}
+
+/* ==========================================
+   MENSAGEM
+========================================== */
+
+#mensagem {
+    min-height: 28px;
+    margin: 18px 0;
+    text-align: center;
+    color: #ffd700;
+    font-weight: bold;
+    font-size: 1.05rem;
+}
+
+/* ==========================================
+   BOTÃO PRÓXIMA
+========================================== */
+
+#proxima {
+    display: block;
+    width: 100%;
+    border: none;
+    border-radius: 16px;
+    padding: 16px;
+    background: linear-gradient(135deg, #ffd700, #ffab00);
+    color: #171000;
+    font-size: 1.05rem;
+    font-weight: 900;
+    cursor: pointer;
+    transition: 0.25s ease;
+    box-shadow: 0 8px 25px rgba(255, 193, 7, 0.2);
+}
+
+#proxima:hover:not(:disabled) {
+    transform: translateY(-3px);
+    filter: brightness(1.08);
+    box-shadow: 0 12px 30px rgba(255, 193, 7, 0.3);
+}
+
+#proxima:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+#proxima:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+/* ==========================================
+   MÚSICA
+========================================== */
+
+
+/* ==========================================
+   MÚSICA
+========================================== */
+
+#btn-musica {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 215, 0, 0.4);
+    background: rgba(8, 22, 50, 0.9);
+    color: white;
+    font-size: 1.3rem;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    transition: 0.25s;
+    z-index: 10;
+}
+
+#btn-musica:hover {
+    transform: scale(1.1) rotate(5deg);
+    border-color: #ffd700;
+}
+
+
+/* ==========================================
+   SCROLLBAR
+========================================== */
+
+::-webkit-scrollbar {
+    width: 9px;
+}
+
+::-webkit-scrollbar-track {
+    background: #050b18;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #263f75;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ffd700;
+}
+
+/* ==========================================
+   RESPONSIVO
+========================================== */
+
+@media (max-width: 700px) {
+
+    body {
+        padding: 10px;
+    }
+
+    .jogo {
+        padding: 20px 15px;
+        border-radius: 20px;
+    }
+
+    .materias {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    #alternativas {
+        grid-template-columns: 1fr;
+    }
+
+    .topo-quiz {
+        justify-content: center;
+        text-align: center;
+    }
+
+    
+    #premio {
+        width: 100%;
+        text-align: center;
+    }
+
+    .ajudas {
+        gap: 8px;
+    }
+
+    .ajudas button {
+        flex: 1;
+        min-width: 100px;
+    }
+}
+
+@media (max-width: 450px) {
+
+    .materias {
+        grid-template-columns: 1fr;
+    }
+
+    .materia[data-materia="Misturado"] {
+        grid-column: auto;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    #pergunta {
+        padding: 22px 15px;
+    }
+
+    .alternativa {
+        font-size: 0.95rem;
+    }
+}
+
+/* ==========================================
+   BOTÕES DO FIM DE JOGO
+========================================== */
+
+#repetir-jogo,
+#outra-materia {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 13px 20px;
+    margin: 10px 8px 0 0;
+
+    border: 1px solid rgba(255, 215, 0, 0.45);
+    border-radius: 12px;
+
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: all 0.25s ease;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+}
+
+/* Repetir jogo: azul */
+#repetir-jogo {
+    background: linear-gradient(135deg, #17356d, #091633);
+    color: white;
+}
+
+/* Escolher outra matéria: dourado */
+#outra-materia {
+    background: linear-gradient(135deg, #ffd700, #ffae00);
+    color: #071126;
+}
+
+/* Efeito ao passar o mouse */
+#repetir-jogo:hover,
+#outra-materia:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(255, 215, 0, 0.2);
+    filter: brightness(1.1);
+}
+
+/* Efeito ao clicar */
+#repetir-jogo:active,
+#outra-materia:active {
+    transform: scale(0.97);
+}
+
+/* Ajuste para celular */
+@media (max-width: 500px) {
+    #repetir-jogo,
+    #outra-materia {
+        padding: 11px 13px;
+        font-size: 13px;
+        margin-right: 4px;
+    }
+}
+
+/* ==========================================
+   CONFIRMAÇÃO DE TROCA DE MATÉRIA
+========================================== */
+
+#confirmacao-materia {
+    text-align: center;
+    margin: 20px 0 0;
+    padding: 20px;
+    background: linear-gradient(145deg, #12285a, #091633);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    animation: aparecer 0.3s ease;
+}
+
+#confirmacao-materia p {
+    color: #ffffff;
+    font-size: 1.05rem;
+    font-weight: bold;
+    line-height: 1.5;
+    margin-bottom: 18px;
+}
+
+/* Botões Sim e Não */
+#confirmacao-materia button {
+    min-width: 105px;
+    padding: 11px 20px;
+    margin: 4px;
+
+    border: none;
+    border-radius: 10px;
+
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+/* Sim */
+#confirmacao-materia button:first-of-type {
+    background: linear-gradient(135deg, #ffd700, #ffae00);
+    color: #071126;
+}
+
+/* Não */
+#confirmacao-materia button:last-of-type {
+    background: linear-gradient(135deg, #1b3567, #0b1935);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* Efeitos */
+#confirmacao-materia button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.12);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.15);
+}
+
+#confirmacao-materia button:active {
+    transform: scale(0.97);
+}
+
+/* Celular */
+@media (max-width: 500px) {
+    #confirmacao-materia {
+        padding: 16px 12px;
+    }
+
+    #confirmacao-materia p {
+        font-size: 0.95rem;
+    }
+
+    #confirmacao-materia button {
+        min-width: 90px;
+    }
+}
+
+/* ==========================================
+   MODAL DE CONFIRMAÇÃO DO QUIZ
+========================================== */
+
+#confirmacao {
+    display: none;
+    margin: 22px 0 0;
+    padding: 24px 20px;
+
+    background: linear-gradient(145deg, #12285a, #091633);
+    border: 1px solid rgba(255, 215, 0, 0.5);
+    border-radius: 18px;
+
+    text-align: center;
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(255, 215, 0, 0.06);
+
+    animation: aparecer 0.3s ease;
+}
+
+/* Texto da confirmação */
+#texto-confirmacao {
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.08rem;
+    font-weight: bold;
+    line-height: 1.6;
+
+    margin-bottom: 20px;
+}
+
+/* Botões Sim e Não */
+#confirmar-sim,
+#confirmar-nao {
+    min-width: 115px;
+    padding: 12px 22px;
+    margin: 4px;
+
+    border-radius: 10px;
+    border: 1px solid transparent;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+/* SIM — dourado */
+#confirmar-sim {
+    background: linear-gradient(135deg, #ffd700, #ffae00);
+    color: #071126;
+    border-color: #ffe45c;
+}
+
+/* NÃO — azul */
+#confirmar-nao {
+    background: linear-gradient(135deg, #17356d, #091633);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Efeitos ao passar o mouse */
+#confirmar-sim:hover,
+#confirmar-nao:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.12);
+    box-shadow: 0 6px 18px rgba(255, 215, 0, 0.15);
+}
+
+/* Efeito ao clicar */
+#confirmar-sim:active,
+#confirmar-nao:active {
+    transform: scale(0.97);
+}
+
+/* Celular */
+@media (max-width: 500px) {
+    #confirmacao {
+        padding: 18px 12px;
+    }
+
+    #texto-confirmacao {
+        font-size: 0.95rem;
+    }
+
+    #confirmar-sim,
+    #confirmar-nao {
+        min-width: 95px;
+        padding: 11px 16px;
+    }
+}
+
+/* ==========================================
+   CAPA E CADASTRO DO JOGADOR
+========================================== */
+
+#tela-cadastro {
+    display: none;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#tela-cadastro .cadastro-card {
+    max-width: 440px;
+    margin: 30px auto 15px;
+    padding: 30px;
+
+    background: linear-gradient(145deg, #12285a, #091633);
+    border: 1px solid rgba(255, 215, 0, 0.5);
+    border-radius: 22px;
+
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.cadastro-icone {
+    font-size: 54px;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.3));
+}
+
+#tela-cadastro .cadastro-card h2 {
+    color: #ffd700;
+    font-size: 1.7rem;
+    margin: 8px 0;
+}
+
+#tela-cadastro .cadastro-card p {
+    color: #b9c7e6;
+    margin-bottom: 22px;
+}
+
+#tela-cadastro label {
+    display: block;
+    text-align: left;
+    color: #ffd700;
+    font-weight: bold;
+    margin: 15px 0 7px;
+}
+
+#tela-cadastro input {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 14px;
+
+    color: white;
+    background: #071329;
+    border: 1px solid #344a76;
+    border-radius: 10px;
+
+    font: inherit;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#tela-cadastro input:focus {
+    border-color: #ffd700;
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.15);
+}
+
+#tela-cadastro input::placeholder {
+    color: #8392b2;
+}
+
+#comecar-jogo {
+    width: 100%;
+    margin-top: 25px;
+    padding: 15px;
+
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #ffd700, #ffae00);
+    color: #071329;
+
+    font-size: 1rem;
+    font-weight: 900;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+#comecar-jogo:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(255, 215, 0, 0.2);
+}
+
+#erro-cadastro {
+    color: #ff8d8d !important;
+    font-size: 0.9rem;
+    margin: 12px 0 0 !important;
+}
+
+#tela-cadastro .rodape-capa {
+    color: #b9c7e6;
+    margin-top: 20px;
+}
+
+@media (max-width: 500px) {
+    #tela-cadastro .cadastro-card {
+        padding: 22px 16px;
+    }
+}
